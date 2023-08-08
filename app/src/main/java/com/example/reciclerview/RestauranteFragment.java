@@ -19,8 +19,6 @@ import com.example.reciclerview.placeholder.PlaceholderContent;
  */
 public class RestauranteFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
@@ -31,23 +29,9 @@ public class RestauranteFragment extends Fragment {
     public RestauranteFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static RestauranteFragment newInstance(int columnCount) {
-        RestauranteFragment fragment = new RestauranteFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
@@ -64,7 +48,7 @@ public class RestauranteFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            //recyclerView.setAdapter(new MyRecyclerViewAdapter(PlaceholderContent.ITEMS));
         }
         return view;
     }
