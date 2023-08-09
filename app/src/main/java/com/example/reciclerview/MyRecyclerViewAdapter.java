@@ -3,25 +3,25 @@ package com.example.reciclerview;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.reciclerview.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.reciclerview.databinding.FragmentRestauranteBinding;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
- * TODO: Replace the implementation with code for your data type.
- */
+
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Restaurante> mValues;
+    private final OnListFragmentInteractionListener mListener;
 
-    public MyRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public MyRecyclerViewAdapter(List<Restaurante> items,OnListFragmentInteractionListener) {
+
         mValues = items;
+        mListener = listener;
     }
 
     @Override
@@ -34,8 +34,13 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.textViewNombreRestaurante.setText(holder.mItem.getNombre());
+        holder.textViewDireccionRestaurante.setText(holder.mItem.getDireccion());
+        holder.ratingBarValoracionRestaurante.setRating(holder.mItem.getValoracion());
+        //Se reuqiere una libreria para la carga de imagenes
+        holder.imageViewPhotoRestaurante.setImageResource(holder.mItem.getUrlPhoto());
+
+
     }
 
     @Override
@@ -44,19 +49,29 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public PlaceholderItem mItem;
+        public final TextView textViewNombreRestaurante;
+        public final TextView textViewDireccionRestaurante;
+        public final ImageView imageViewPhotoRestaurante;
+        public final RatingBar ratingBarValoracionRestaurante;
+        public Restaurante mItem;
 
         public ViewHolder(FragmentRestauranteBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+
+            textViewNombreRestaurante = itemView.findViewById(R.id.textViewNombre);
+            textViewDireccionRestaurante = itemView.findViewById(R.id.textViewDireccion);
+            imageViewPhotoRestaurante = itemView.findViewById(R.id.imageViewPhoto);
+            ratingBarValoracionRestaurante = itemView.findViewById(R.id.ratingBarValoracion);
+
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + textViewNombreRestaurante.getText() + "'";
         }
+    }
+
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(Restaurante item);
     }
 }

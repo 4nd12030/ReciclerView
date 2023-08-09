@@ -14,18 +14,21 @@ import android.view.ViewGroup;
 
 import com.example.reciclerview.placeholder.PlaceholderContent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  */
 public class RestauranteFragment extends Fragment {
 
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    MyRecyclerViewAdapter adapterRestaurantes;
+    List<Restaurante> restauranteList;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private int mColumnCount = 1;
+    //private OnListFragmentIteractionListener mListener;
+
+
     public RestauranteFragment() {
     }
 
@@ -49,6 +52,15 @@ public class RestauranteFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             //recyclerView.setAdapter(new MyRecyclerViewAdapter(PlaceholderContent.ITEMS));
+
+            //Crear Lista de elementos (Restaurantes)
+            restauranteList = new ArrayList<>();
+            restauranteList.add(new Restaurante("Pizzeria Andy", "", 4.8f, "Av 1 Iztapalapa"));
+            restauranteList.add(new Restaurante("Hamburguesas Olap", "", 2.8f, "Av 5 Iztapalapa"));
+            restauranteList.add(new Restaurante("Antojitos Mexicanos", "", 1.8f, "Av 4 Iztapalapa"));
+            // Asociamos el adaptador al ReciclerView
+            adapterRestaurantes = new MyRecyclerViewAdapter(restauranteList,mListener);
+            recyclerView.setAdapter(adapterRestaurantes);
         }
         return view;
     }
