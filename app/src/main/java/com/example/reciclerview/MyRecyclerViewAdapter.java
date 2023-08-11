@@ -2,12 +2,14 @@ package com.example.reciclerview;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.reciclerview.databinding.FragmentRestauranteBinding;
 
 import java.util.List;
@@ -15,11 +17,13 @@ import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
+    private Context ctx;
     private final List<Restaurante> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyRecyclerViewAdapter(List<Restaurante> items,OnListFragmentInteractionListener) {
+    public MyRecyclerViewAdapter(Context context, List<Restaurante> items, OnListFragmentInteractionListener listener) {
 
+        ctx = context;
         mValues = items;
         mListener = listener;
     }
@@ -37,9 +41,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         holder.textViewNombreRestaurante.setText(holder.mItem.getNombre());
         holder.textViewDireccionRestaurante.setText(holder.mItem.getDireccion());
         holder.ratingBarValoracionRestaurante.setRating(holder.mItem.getValoracion());
-        //Se reuqiere una libreria para la carga de imagenes
-        holder.imageViewPhotoRestaurante.setImageResource(holder.mItem.getUrlPhoto());
 
+        //Se reuqiere una libreria para la carga de imagenes
+        //holder.imageViewPhotoRestaurante.setImageResource(holder.mItem.getUrlPhoto());
+        Glide.with(ctx)
+                .load(holder.mItem.getUrlPhoto())
+                .centerCrop()
+                .into(holder.imageViewPhotoRestaurante);
+
+
+        /*holder.mView.setOnClickListener((v) -> {
+            if(null != mListener) {
+                mListener.onListFragmentInteraction(holder.mItem);
+            }
+        });*/
 
     }
 

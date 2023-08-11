@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.reciclerview.placeholder.PlaceholderContent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +20,12 @@ import java.util.List;
  */
 public class RestauranteFragment extends Fragment {
 
+    RecyclerView recyclerView;
     MyRecyclerViewAdapter adapterRestaurantes;
     List<Restaurante> restauranteList;
 
     private int mColumnCount = 1;
-    //private OnListFragmentIteractionListener mListener;
+    private OnListFragmentInteractionListener mListener;
 
 
     public RestauranteFragment() {
@@ -55,13 +54,18 @@ public class RestauranteFragment extends Fragment {
 
             //Crear Lista de elementos (Restaurantes)
             restauranteList = new ArrayList<>();
-            restauranteList.add(new Restaurante("Pizzeria Andy", "", 4.8f, "Av 1 Iztapalapa"));
-            restauranteList.add(new Restaurante("Hamburguesas Olap", "", 2.8f, "Av 5 Iztapalapa"));
-            restauranteList.add(new Restaurante("Antojitos Mexicanos", "", 1.8f, "Av 4 Iztapalapa"));
+            restauranteList.add(new Restaurante("Pizzeria Andy", "https://s3.amazonaws.com/orion-eat-app-files/orioneat-prod/Bax3MCyXppZJ6YaSF-1920x1080%20pxls.jpg", 4.8f, "Av 1 Iztapalapa"));
+            restauranteList.add(new Restaurante("Hamburguesas Olap", "https://www.hogar.mapfre.es/media/2018/09/hamburguesa-sencilla.jpg", 2.8f, "Av 5 Iztapalapa"));
+            restauranteList.add(new Restaurante("Antojitos Mexicanos", "https://www.serzen.mx/u/fotografias/m/2022/9/15/f960x540-42317_116392_0.jpg", 1.8f, "Av 4 Iztapalapa"));
             // Asociamos el adaptador al ReciclerView
-            adapterRestaurantes = new MyRecyclerViewAdapter(restauranteList,mListener);
+
+            adapterRestaurantes = new MyRecyclerViewAdapter(getActivity(),restauranteList, (MyRecyclerViewAdapter.OnListFragmentInteractionListener) mListener);
             recyclerView.setAdapter(adapterRestaurantes);
         }
         return view;
+    }
+
+    public interface OnListFragmentInteractionListener {
+        void onListFragmentInteraction(Restaurante item);
     }
 }

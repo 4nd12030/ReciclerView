@@ -11,6 +11,8 @@
         android:name="com.example.reciclerview.RestauranteFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="206dp"
-        tools:layout_editor_absoluteY="348dp" />
+        tools:ignore="MissingClass,MissingConstraints" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
